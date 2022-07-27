@@ -1,25 +1,24 @@
-# Prevendo o Consumo de Emergia de Carros Elétricos
+## Prevendo o Consumo de Emergia de Carros Elétricos
 
 # Fonte de Dados
 # https://data.mendeley.com/datasets/tb9yrptydn/2
 
-setwd("/home/cienciad/fcd/1-BigDataRAzure/projetos/consumer-eletric-cars/")
+setwd("/home/cienciad/fcd/1-BigDataRAzure/projetos/consumer-electric-cars/")
 getwd()
 
-# Carregando os dados
+# Instalando o pacote necessários
+# install.packages("readxl")
+# install.packages("dplyr")
 
-# Instalando o pacote
-install.packages("readxl")
+# Carregando pacotes
+library('readxl')
+library('dplyr')
 
-# Pacote readxl
-library(readxl)
-
-# Lendo a planilha do Excel
-View(read_excel("FEV-data-Excel.xlsx"))
-
-# Importando uma worksheet para um dataframe
+# Importando o arquivo para um dataframe
 df <- read_excel("FEV-data-Excel.xlsx")
-View(df)
 
+# Número de linhas do arquivo
+count(df)
 
-
+# Primeiras linhas do arquivo
+head(df)
