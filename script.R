@@ -1,33 +1,38 @@
-## Prevendo o Consumo de Emergia de Carros Elétricos
+## Predict Consumer Electric Cars
 
-# Fonte de Dados
+# Data Source
 # https://data.mendeley.com/datasets/tb9yrptydn/2
 
 setwd("/home/cienciad/fcd/1-BigDataRAzure/projetos/consumer-electric-cars/")
 getwd()
 
-# Instalando o pacote necessários
+# Installing necessary packages
 # install.packages("readxl")
 # install.packages("dplyr")
 
-# Carregando pacotes
+# Loading necessary packages
 library('readxl')
 library('dplyr')
 
-# Importando o arquivo para um dataframe
+# Importing file
 df <- read_excel("FEV-data-Excel.xlsx")
 
-# Número de linhas do arquivo
+# Number lines
 count(df)
 
-# Primeiras linhas do arquivo
+# First rows
 head(df)
 
-# Resumo estatístico
+# Statistics summary
 summary(df)
 
-# Renomeando as colunas
-colnames(df)<-c('car', 'make', 'model', 'mprice', 'power', 'mtorque', 'tbrakes', 'dtype', 'bcapacity', 
+# Renaming columns
+colnames(df) <-c('car', 'make', 'model', 'mprice', 'power', 'mtorque', 'tbrakes', 'dtype', 'bcapacity', 
                 'range', 'wheelbase', 'length', 'width','height','mweight', 'pweight', 'mcapacity', 
                 'nseats', 'ndoors','tsize', 'mspeed', 'bcapacity', 'acceleration', 'mcpower', 'cenergy')
                 
+
+# Deleting columns car and model
+df$car <- NULL
+df$model <- NULL
+
