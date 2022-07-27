@@ -22,3 +22,12 @@ count(df)
 
 # Primeiras linhas do arquivo
 head(df)
+
+# Resumo estatístico
+summary(df)
+
+# Renomeando as colunas
+colnames(df)<-c('car', 'make', 'model', 'mprice', 'power', 'mtorque', 'tbrakes', 'dtype', 'bcapacity', 
+                'range', 'wheelbase', 'length', 'width','height','mweight', 'pweight', 'mcapacity', 
+                'nseats', 'ndoors','tsize', 'mspeed', 'bcapacity', 'acceleration', 'mcpower', 'cenergy')
+                
