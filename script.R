@@ -9,10 +9,13 @@ getwd()
 # Installing necessary packages
 # install.packages("readxl")
 # install.packages("dplyr")
+# install.packages("caret")
 
 # Loading necessary packages
 library('readxl')
 library('dplyr')
+library('caret')
+
 
 # Importing file
 df <- read_excel("FEV-data-Excel.xlsx")
@@ -29,10 +32,51 @@ summary(df)
 # Renaming columns
 colnames(df) <-c('car', 'make', 'model', 'mprice', 'power', 'mtorque', 'tbrakes', 'dtype', 'bcapacity', 
                 'range', 'wheelbase', 'length', 'width','height','mweight', 'pweight', 'mcapacity', 
-                'nseats', 'ndoors','tsize', 'mspeed', 'bcapacity', 'acceleration', 'mcpower', 'cenergy')
+                'nseats', 'ndoors','tsize', 'mspeed', 'bocapacity', 'acceleration', 'mcpower', 'cenergy')
                 
 
-# Deleting columns car and model
+# Deleting columns make, car and model
+df$make <- NULL
 df$car <- NULL
 df$model <- NULL
+
+table(df$tbrakes)
+
+# Replace tbrakes column values for numbers
+df$tbrakes <- replace(df$tbrakes, is.na(df$tbrakes), 0)
+df$tbrakes <- replace(df$tbrakes, df$tbrakes == "disc (front + rear)", 1)
+df$tbrakes <- replace(df$tbrakes, df$tbrakes == "disc (front) + drum (rear)", 2)
+
+table(df$dtype)
+
+# Replace dtypes column values for numbers
+df$dtype <- replace(df$dtype, df$dtype == "2WD (front)", 1)
+df$dtype <- replace(df$dtype, df$dtype == "2WD (rear)", 2)
+df$dtype <- replace(df$dtype, df$dtype == "4WD", 3)
+
+# Finding null values
+sum(is.na(df))
+
+# Deleting rows that have null values
+df <- na.omit(df)
+
+# Dividing data in training and test
+split <- createDataPartition(y = df$cenergy, p = 0.7, list = FALSE)
+
+train_data <- df[split,]
+test_data <- df[-split,]
+
+# Training the first version of model with all columns
+model.v1 <- lm(cenergy ~ ., data = train_data)
+
+model.v1
+
+# Summary first model
+summary(model.v1)
+
+predictedValues <- predict(model.v1, test_data)
+predictedValues
+plot(test_data$cenergy, predictedValues)
+
+
 
