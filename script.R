@@ -41,6 +41,7 @@ df$make <- NULL
 df$car <- NULL
 df$model <- NULL
 
+
 table(df$tbrakes)
 
 # Replace tbrakes column values for numbers
@@ -88,3 +89,33 @@ model.v2
 
 # Summary second model
 summary(model.v2)
+
+# Deleting non-numeric variables
+df$tbrakes <- NULL
+df$dtype <- NULL
+
+
+# Correlation between all numeric variables
+cor(df[c('mprice', 'power', 'mtorque', 'bcapacity', 'range', 'wheelbase', 'length', 'width', 'height',
+         'mweight', 'pweight', 'mcapacity', 'nseats', 'ndoors','tsize', 'mspeed', 'bocapacity', 'acceleration', 
+         'mcpower', 'cenergy')])
+
+# Variables range, width, height, nseats, ndoors, tsize and acceleration
+# don't have strong correlation with the variable cenergy
+
+select.variables <- c('mprice', 'power', 'mtorque', 'bcapacity', 'wheelbase', 'length',
+                      'mweight', 'pweight', 'mcapacity', 'mspeed', 'bocapacity',
+                      'mcpower', 'cenergy')
+
+cor(df[select.variables])
+
+# Dividing data in training and test
+split <- createDataPartition(y = df$cenergy, p = 0.7, list = FALSE)
+
+model.v3 <- lm(cenergy ~ mprice + power + mtorque + bcapacity + wheelbase
+               + length + mweight + mcapacity + mspeed + bocapacity + mcpower, data = train_data)
+
+model.v3
+
+# Summary second model
+summary(model.v3)
