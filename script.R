@@ -16,6 +16,7 @@ library('readxl')
 library('dplyr')
 library('caret')
 
+set.seed(123)
 
 # Importing file
 df <- read_excel("FEV-data-Excel.xlsx")
@@ -78,5 +79,12 @@ predictedValues <- predict(model.v1, test_data)
 predictedValues
 plot(test_data$cenergy, predictedValues)
 
+# Second Model
+# In this model, only variables that had statistical significance
+# Pr(>|t|) less than 0.05 were considered.
+model.v2 <- lm(cenergy ~ dtype + range + bocapacity, data = train_data)
 
+model.v2
 
+# Summary second model
+summary(model.v2)
